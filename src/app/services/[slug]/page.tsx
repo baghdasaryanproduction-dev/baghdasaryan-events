@@ -3,16 +3,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getServiceBySlug, getPublishedServices } from "@/lib/data/services";
+import { getServiceBySlug } from "@/lib/data/services";
 
 interface Props {
   params: { slug: string };
 }
 
-export async function generateStaticParams() {
-  const services = await getPublishedServices();
-  return services.map((s) => ({ slug: s.slug }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = await getServiceBySlug(params.slug);
