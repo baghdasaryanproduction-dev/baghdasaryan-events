@@ -64,7 +64,7 @@ function LoginForm() {
           disabled={loading}
           className="w-full rounded-md bg-slate-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50"
         >
-          {loading ? "Signing in…" : "Sign in"}
+          {loading ? "Signing inâ€¦" : "Sign in"}
         </button>
       </div>
     </form>
@@ -74,7 +74,7 @@ function LoginForm() {
 export default function AdminLoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50">
-      <Suspense fallback={<div className="text-sm text-slate-400">Loading…</div>}>
+      <Suspense fallback={<div className="text-sm text-slate-400">Loadingâ€¦</div>}>
         <LoginForm />
       </Suspense>
     </div>
