@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { createClient } from "@/lib/supabase/server";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 import type { LeadFormOption } from "@/types";
 
 export const metadata: Metadata = {
@@ -59,22 +61,22 @@ async function getFormOptions() {
 }
 
 export default async function ConsultationPage() {
+  const locale = getLocale();
+  const t = getDictionary(locale);
   const { eventTypes, budgets } = await getFormOptions();
 
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main className="mx-auto max-w-2xl px-6 py-20">
-        <h1 className="font-display text-4xl text-ink">Խնդրել խորհրդատվություն</h1>
-        <p className="mt-4 text-char">
-          Պատմեք մեզ ձեր միջոցառման մասին, և մեր թիմը կպատրաստի համապատասխան առաջարկ։
-        </p>
+        <h1 className="font-display text-4xl text-ink">{t.consultation.title}</h1>
+        <p className="mt-4 text-char">{t.consultation.intro}</p>
 
         <div className="mt-12">
-          <ConsultationForm eventTypeOptions={eventTypes} budgetOptions={budgets} />
+          <ConsultationForm locale={locale} eventTypeOptions={eventTypes} budgetOptions={budgets} />
         </div>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

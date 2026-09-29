@@ -3,24 +3,27 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { DiasporaSection } from "@/components/DiasporaSection";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const metadata: Metadata = { title: "Process" };
 
 export default function ProcessPage() {
+  const locale = getLocale();
+  const t = getDictionary(locale);
+
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main>
         <div className="mx-auto max-w-3xl px-6 pt-20">
-          <h1 className="font-display text-4xl text-ink">Ինչպես ենք աշխատում</h1>
-          <p className="mt-4 text-char">
-            Հստակ, կանխատեսելի գործընթաց՝ անկախ նրանից՝ դուք գտնվում եք Հայաստանում, թե արտերկրում։
-          </p>
+          <h1 className="font-display text-4xl text-ink">{t.process.title}</h1>
+          <p className="mt-4 text-char">{t.process.subtitle}</p>
         </div>
-        <ProcessSteps />
-        <DiasporaSection />
+        <ProcessSteps locale={locale} />
+        <DiasporaSection locale={locale} />
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

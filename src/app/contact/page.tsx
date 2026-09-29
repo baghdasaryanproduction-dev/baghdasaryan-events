@@ -2,15 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const metadata: Metadata = { title: "Contact" };
 
 export default function ContactPage() {
+  const locale = getLocale();
+  const t = getDictionary(locale);
+
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main className="mx-auto max-w-3xl px-6 py-20">
-        <h1 className="font-display text-4xl text-ink">Կապ</h1>
+        <h1 className="font-display text-4xl text-ink">{t.pages.contact.title}</h1>
         <div className="mt-8 space-y-2 text-char">
           <p>Baghdasaryan Production</p>
           <p>
@@ -21,14 +26,13 @@ export default function ContactPage() {
               baghdasaryanproduction@gmail.com
             </a>
           </p>
-          {/* Address, hours, and social links: add once supplied, via /admin/settings */}
         </div>
 
         <Link href="/consultation" className="mt-10 inline-block rounded-sm bg-ink px-6 py-3 text-sm text-paper">
-          Խնդրել խորհրդատվություն
+          {t.hero.ctaPrimary}
         </Link>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

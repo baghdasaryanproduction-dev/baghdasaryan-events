@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Locale } from "@/types";
 import { getDictionary } from "@/lib/i18n/dictionary";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const NAV: { href: string; label: Partial<Record<Locale, string>> }[] = [
   { href: "/services", label: { hy: "Ծառայություններ", en: "Services" } },
@@ -46,18 +47,6 @@ export function Header({ locale = "hy" as Locale }: { locale?: Locale }) {
         </div>
       </div>
     </header>
-  );
-}
-
-function LanguageSelector({ current }: { current: Locale }) {
-  return (
-    <div className="flex items-center gap-2 text-sm text-char">
-      {(["hy", "en"] as Locale[]).map((l) => (
-        <span key={l} className={l === current ? "text-ink underline underline-offset-4" : ""}>
-          {l.toUpperCase()}
-        </span>
-      ))}
-    </div>
   );
 }
 

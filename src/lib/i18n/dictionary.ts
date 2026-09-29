@@ -37,6 +37,7 @@ export const dictionary = {
     },
     process: {
       title: "Ինչպես ենք աշխատում",
+      subtitle: "Հստակ, կանխատեսելի գործընթաց՝ անկախ նրանից՝ դուք գտնվում եք Հայաստանում, թե արտերկրում։",
       steps: [
         { title: "Պատմեք մեզ ձեր միջոցառման մասին", body: "Դուք ներկայացնում եք ձեր միջոցառման մանրամասները։" },
         { title: "Կառուցում ենք ծրագիրը", body: "Մեր թիմը հասկանում է ձեր պահանջները և պատրաստում է անհատականացված մոտեցում։" },
@@ -70,6 +71,52 @@ export const dictionary = {
     footer: {
       rights: "Բոլոր իրավունքները պաշտպանված են։",
     },
+    home: {
+      servicesHeading: "Ծառայություններ",
+      viewAllServices: "Բոլոր ծառայությունները",
+      finalCtaTitle: "Պատրա՞ստ եք սկսել ձեր միջոցառման պլանավորումը",
+    },
+    pages: {
+      services: {
+        title: "Ծառայություններ",
+        subtitle: "Մեկ թիմ՝ ձեր միջոցառման բոլոր բաղադրիչների համակարգման համար։",
+      },
+      portfolio: {
+        title: "Օրինակագիր",
+        empty: "Այս կատեգորիայում դեռ նախագծեր չկան։",
+      },
+      about: {
+        title: "Մեր մասին",
+        placeholder: "[Placeholder — ընկերության իրական պատմությունը կլրացվի Admin Panel-ից]",
+      },
+      faq: {
+        title: "Հաճախ տրվող հարցեր",
+      },
+      contact: {
+        title: "Կապ",
+      },
+      privacy: {
+        title: "Գաղտնիության քաղաքականություն",
+        placeholder: "[Placeholder — գաղտնիության քաղաքականության իրական տեքստը կավելացվի թողարկումից առաջ]",
+      },
+      terms: {
+        title: "Պայմաններ",
+        placeholder: "[Placeholder — օգտագործման պայմանների իրական տեքստը կավելացվի թողարկումից առաջ]",
+      },
+      serviceDetail: {
+        inclusions: "Ներառված է",
+      },
+    },
+    portfolioFilters: [
+      { value: undefined, label: "Բոլորը" },
+      { value: "wedding", label: "Հարսանեկան" },
+      { value: "baptism", label: "Մկրտություն" },
+      { value: "birthday", label: "Ծննդյան օր" },
+      { value: "engagement", label: "Նշանդրություն" },
+      { value: "proposal", label: "Առաջարկություն" },
+      { value: "corporate", label: "Կորպորատիվ" },
+      { value: "private", label: "Մասնավոր" },
+    ],
   },
   en: {
     nav: {
@@ -104,6 +151,7 @@ export const dictionary = {
     },
     process: {
       title: "How it works",
+      subtitle: "A clear, predictable process — whether you're in Armenia or abroad.",
       steps: [
         { title: "Tell Us About Your Event", body: "You submit your event details." },
         { title: "We Build the Plan", body: "Our team understands your requirements and prepares a customized approach." },
@@ -137,6 +185,52 @@ export const dictionary = {
     footer: {
       rights: "All rights reserved.",
     },
+    home: {
+      servicesHeading: "Services",
+      viewAllServices: "All services",
+      finalCtaTitle: "Ready to start planning your event?",
+    },
+    pages: {
+      services: {
+        title: "Services",
+        subtitle: "One team to coordinate every part of your event.",
+      },
+      portfolio: {
+        title: "Portfolio",
+        empty: "No projects in this category yet.",
+      },
+      about: {
+        title: "About",
+        placeholder: "[Placeholder — the company's real story will be added via the Admin Panel]",
+      },
+      faq: {
+        title: "Frequently Asked Questions",
+      },
+      contact: {
+        title: "Contact",
+      },
+      privacy: {
+        title: "Privacy Policy",
+        placeholder: "[Placeholder — the real privacy policy text will be added before launch]",
+      },
+      terms: {
+        title: "Terms",
+        placeholder: "[Placeholder — the real terms text will be added before launch]",
+      },
+      serviceDetail: {
+        inclusions: "What's included",
+      },
+    },
+    portfolioFilters: [
+      { value: undefined, label: "All" },
+      { value: "wedding", label: "Weddings" },
+      { value: "baptism", label: "Baptism" },
+      { value: "birthday", label: "Birthdays" },
+      { value: "engagement", label: "Engagement" },
+      { value: "proposal", label: "Proposal" },
+      { value: "corporate", label: "Corporate" },
+      { value: "private", label: "Private" },
+    ],
   },
 } as const;
 

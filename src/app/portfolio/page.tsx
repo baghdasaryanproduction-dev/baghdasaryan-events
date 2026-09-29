@@ -1,66 +1,55 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { PortfolioCard } from "@/components/PortfolioCard";
-import { getPublishedPortfolio } from "@/lib/data/portfolio";
+import { getPortfolioBySlug } from "@/lib/data/portfolio";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Real weddings and events produced by Baghdasaryan Production in Armenia.",
-};
+interface Props {
+  params: { slug: string };
+}
 
-const FILTERS = [
-  { value: undefined, label: "Բոլորը" },
-  { value: "wedding", label: "Հարսանեկան" },
-  { value: "baptism", label: "Մկրտություն" },
-  { value: "birthday", label: "Ծննդյան օր" },
-  { value: "engagement", label: "Նշանդրություն" },
-  { value: "proposal", label: "Առաջարկություն" },
-  { value: "corporate", label: "Կորպորատիվ" },
-  { value: "private", label: "Մասնավոր" },
-];
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const item = await getPortfolioBySlug(params.slug);
+  if (!item) return {};
+  return {
+    title: item.title.en || item.title.hy,
+    description: item.shortDescription.en,
+  };
+}
 
-export default async function PortfolioPage({
-  searchParams,
-}: {
-  searchParams: { type?: string };
-}) {
-  const items = await getPublishedPortfolio(searchParams.type);
+export default async function PortfolioDetailPage({ params }: Props) {
+  const locale = getLocale();
+  const t = getDictionary(locale);
+  const item = await getPortfolioBySlug(params.slug);
+  if (!item) notFound();
 
   return (
     <>
-      <Header />
-      <main className="mx-auto max-w-6xl px-6 py-20">
-        <h1 className="font-display text-4xl text-ink">Օրինակագիր</h1>
+      <Header locale={locale} />
+      <main>
+        <div className="relative aspect-[16/9] w-full bg-stone">
+          {item.coverImage && (
+            <Image src={item.coverImage} alt={item.title.hy ?? ""} fill className="object-cover" />
+          )}
+        </div>
 
-        <nav className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-b border-line pb-6 text-sm">
-          {FILTERS.map((f) => (
-            <Link
-              key={f.label}
-              href={f.value ? `/portfolio?type=${f.value}` : "/portfolio"}
-              className={
-                searchParams.type === f.value || (!searchParams.type && !f.value)
-                  ? "text-ink underline underline-offset-4"
-                  : "text-char hover:text-ink"
-              }
-            >
-              {f.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="mx-auto max-w-3xl px-6 py-16">
+          <h1 className="font-display text-4xl text-ink">{item.title[locale] ?? item.title.hy ?? item.title.en}</h1>
+          {item.location && <p className="mt-2 text-char">{item.location}</p>}
+          <p className="mt-6 max-w-prose text-char">
+            {item.fullDescription[locale] ?? item.fullDescription.hy ?? item.fullDescription.en}
+          </p>
 
-        {items.length === 0 ? (
-          <p className="mt-14 text-char">Այս կատեգորիայում դեռ նախագծեր չկան։</p>
-        ) : (
-          <div className="mt-10 columns-1 gap-6 sm:columns-2 lg:columns-3">
-            {items.map((item) => (
-              <PortfolioCard key={item.id} item={item} />
-            ))}
-          </div>
-        )}
+          <Link href="/consultation" className="mt-10 inline-block rounded-sm bg-ink px-6 py-3 text-sm text-paper">
+            {t.hero.ctaPrimary}
+          </Link>
+        </div>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }

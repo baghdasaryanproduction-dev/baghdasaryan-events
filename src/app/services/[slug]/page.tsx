@@ -4,11 +4,12 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getServiceBySlug } from "@/lib/data/services";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 interface Props {
   params: { slug: string };
 }
-
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = await getServiceBySlug(params.slug);
@@ -19,26 +20,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServiceDetailPage({ params }: Props) {
+  const locale = getLocale();
+  const t = getDictionary(locale);
   const service = await getServiceBySlug(params.slug);
   if (!service) notFound();
 
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main className="mx-auto max-w-3xl px-6 py-20">
-        <h1 className="font-display text-4xl text-ink">{service.title.hy ?? service.title.en}</h1>
-        <p className="mt-4 text-lg text-char">{service.shortDescription.hy ?? service.shortDescription.en}</p>
+        <h1 className="font-display text-4xl text-ink">{service.title[locale] ?? service.title.hy ?? service.title.en}</h1>
+        <p className="mt-4 text-lg text-char">
+          {service.shortDescription[locale] ?? service.shortDescription.hy ?? service.shortDescription.en}
+        </p>
 
         <div className="prose prose-ink mt-10 max-w-prose text-char">
-          <p>{service.fullDescription.hy ?? service.fullDescription.en}</p>
+          <p>{service.fullDescription[locale] ?? service.fullDescription.hy ?? service.fullDescription.en}</p>
         </div>
 
         {service.inclusions.length > 0 && (
           <div className="mt-10">
-            <h2 className="font-display text-xl text-ink">Ներառված է</h2>
+            <h2 className="font-display text-xl text-ink">{t.pages.serviceDetail.inclusions}</h2>
             <ul className="mt-3 space-y-1.5 text-char">
               {service.inclusions.map((inc, i) => (
-                <li key={i}>{inc.hy ?? inc.en}</li>
+                <li key={i}>{inc[locale] ?? inc.hy ?? inc.en}</li>
               ))}
             </ul>
           </div>
@@ -48,10 +53,10 @@ export default async function ServiceDetailPage({ params }: Props) {
           href="/consultation"
           className="mt-12 inline-block rounded-sm bg-ink px-6 py-3 text-sm text-paper"
         >
-          Խնդրել խորհրդատվություն
+          {t.hero.ctaPrimary}
         </Link>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
 }
